@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bruc.diary.controller.SearchController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="productFld" onAction="#search" promptText="Product name" />
+            <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="Search" />
+            <JFXSpinner fx:id="spinner" visible="false">
+               <effect>
+                  <GaussianBlur radius="7.07" />
+               </effect></JFXSpinner>
+         </children>
+         <effect>
+            <Glow />
+         </effect>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="productTable" prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                  <TableColumn fx:id="productCol" prefWidth="75.0" text="Product" />
+                  <TableColumn fx:id="caloriesCol" prefWidth="75.0" text="Calories" />
+                  <TableColumn fx:id="sugarsCol" prefWidth="75.0" text="Sugars" />
+                  <TableColumn fx:id="fatsCol" prefWidth="75.0" text="Fats" />
+               </columns>
+            </TableView>
+            <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addSelectedProduct" text="Add selected item" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bruc.diary.controller.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="573.0" minWidth="10.0" prefWidth="534.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="145.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="71.0" minHeight="9.0" prefHeight="13.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="166.0" minHeight="10.0" prefHeight="166.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="92.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="190.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TableView fx:id="selfTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+        <columns>
+            <TableColumn fx:id="dayCol" editable="false" prefWidth="75.0" text="day of week" />
+          <TableColumn prefWidth="75.0" text="na czczo" />
+          <TableColumn prefWidth="75.0" text="śniadanie" />
+            <TableColumn prefWidth="75.0" text="obiad" />
+            <TableColumn prefWidth="75.0" text="kolacja" />
+            <TableColumn prefWidth="75.0" text="ciśnienie" />
+            <TableColumn prefWidth="83.0" text="masa ciała" />
+        </columns>
+      </TableView>
+      <TableView fx:id="mealTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+        <columns>
+          <TableColumn fx:id="productCol" prefWidth="132.0" text="product" />
+          <TableColumn fx:id="caloriesCol" prefWidth="51.0" text="calories" />
+            <TableColumn fx:id="sugarsCol" prefWidth="42.0" text="sugar" />
+            <TableColumn fx:id="fatsCol" prefWidth="44.0" text="fats" />
+        </columns>
+      </TableView>
+      <Label text="Self-audit Table">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label text="Meals" GridPane.rowIndex="3">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="addEntryBtn" mnemonicParsing="false" onAction="#editEntry" text="Add" />
+            <Button fx:id="editEntryBtn" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="deleteEntryBtn" mnemonicParsing="false" text="Delete" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Region prefHeight="46.0" prefWidth="145.0" />
+            <Button fx:id="addMealBtn" mnemonicParsing="false" onAction="#addMeal" text="Add" />
+            <Button fx:id="deleteMealBtn" mnemonicParsing="false" onAction="#deleteMeal" text="Delete" />
+            <Region prefHeight="25.0" prefWidth="145.0" />
+            <ImageView fitHeight="70.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@poweredby_nutritionix_api.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <DatePicker fx:id="datePicker" onAction="#selectDate" promptText="Select date" GridPane.rowIndex="1" />
+   </children>
+</GridPane>

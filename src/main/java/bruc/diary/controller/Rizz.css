@@ -1,0 +1,11 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root{
+	-fx-background-color: linear-gradient( from 50.0% 0.0% to 50.0% 100.0%, rgb(255,20,0) 0.0, rgb(150,170,120) 100.0);
+	-fx-border-color: rgb(210,0,55);
+	-fx-border-width: 2;
+
+}
+
+
+
