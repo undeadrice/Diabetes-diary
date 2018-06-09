@@ -5,7 +5,8 @@ import java.util.Map;
 
 import com.jfoenix.controls.JFXSpinner;
 
-import bruc.diary.connectivity.APIConnection;
+import bruc.diary.connectivity.nutritionix.APIConnection;
+import bruc.diary.entry.MealEntry;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class SearchController {
@@ -27,7 +29,7 @@ public class SearchController {
 	private Stage stage;
 
 	private APIConnection connect;
-	private ObservableList<Map<String, Object>> list;
+	private ObservableList<MealEntry> list;
 
 	@FXML
 	private JFXSpinner spinner;
@@ -38,15 +40,15 @@ public class SearchController {
 	@FXML
 	private Button addBtn;
 	@FXML
-	private TableView<Map<String, Object>> productTable;
+	private TableView<MealEntry> productTable;
 	@FXML
-	private TableColumn<Map<String, Object>, Object> productCol;
+	private TableColumn<MealEntry, String> productCol;
 	@FXML
-	private TableColumn<Map<String, Object>, Object> caloriesCol;
+	private TableColumn<MealEntry, Double> caloriesCol;
 	@FXML
-	private TableColumn<Map<String, Object>, Object> sugarsCol;
+	private TableColumn<MealEntry, Double> sugarsCol;
 	@FXML
-	private TableColumn<Map<String, Object>, Object> fatsCol;
+	private TableColumn<MealEntry, Double> fatsCol;
 
 	public void init(Controller controller, Stage stage, APIConnection connect) {
 		this.controller = controller;
@@ -59,22 +61,24 @@ public class SearchController {
 		String query = productFld.getText();
 		spinner.setVisible(true);
 		try {
-			list = connect.getFieldsAsObservableList(query);
+			list = connect.getMealEntries(query);
 			productTable.setItems(list);
-			productCol.setCellValueFactory(new MapValueFactory("item_name"));
-			caloriesCol.setCellValueFactory(new MapValueFactory("nf_calories"));
-			sugarsCol.setCellValueFactory(new MapValueFactory("nf_sugars"));
-			fatsCol.setCellValueFactory(new MapValueFactory("nf_total_fat"));
+			productCol.setCellValueFactory(new PropertyValueFactory("product"));
+			caloriesCol.setCellValueFactory(new PropertyValueFactory("calories"));
+			sugarsCol.setCellValueFactory(new PropertyValueFactory("sugars"));
+			fatsCol.setCellValueFactory(new PropertyValueFactory("fats"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
 
 	@FXML
 	private void addSelectedProduct() {
+	
 		controller.addSelectedMeal(productTable.getSelectionModel().getSelectedItem());
+		
 		this.stage.close();
 
 	}

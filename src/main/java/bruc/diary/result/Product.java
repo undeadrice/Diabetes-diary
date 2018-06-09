@@ -2,13 +2,16 @@ package bruc.diary.result;
 
 import java.util.HashMap;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Product {
 
-	private String _id;
+	@SerializedName("_id")
+	private String id;
 	private HashMap<String, Object> fields;
 
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
 	public HashMap<String, Object> getFields() {

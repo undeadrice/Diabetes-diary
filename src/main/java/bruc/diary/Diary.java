@@ -1,12 +1,16 @@
 package bruc.diary;
 
-import bruc.diary.connectivity.APIConnection;
+import bruc.diary.Window.MoveableStage;
+import bruc.diary.connectivity.localdatebase.DAO;
+import bruc.diary.connectivity.localdatebase.SqliteDAO;
+import bruc.diary.connectivity.nutritionix.APIConnection;
 import bruc.diary.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Diary extends Application {
 
@@ -19,26 +23,32 @@ public class Diary extends Application {
 
 	private FXMLLoader loader;
 
+	private static DAO dao;
 	private static APIConnection connect;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		
 		connect = new APIConnection();
+		dao = new SqliteDAO();
 		launch(args);
+		
+		
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		loader = new FXMLLoader(getClass().getResource("controller/mainWindow2.fxml"));
+		loader = new FXMLLoader(getClass().getResource("controller/mainView.fxml"));
 		Parent root = loader.load();
 		Controller controller = loader.getController();
-		controller.init(connect);
+		controller.init(connect, dao);
 
-		Scene scene = new Scene(root);
+		Scene scene = new MoveableStage(root,stage);
 
-		stage.setTitle("Dziennik cukrzyka - wersja Pro - Twoja licencja wygasa za 3 dni");
+
 		stage.setScene(scene);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.show();
 
 	}

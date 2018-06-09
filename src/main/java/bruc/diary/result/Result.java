@@ -2,18 +2,22 @@ package bruc.diary.result;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Result {
 
-	private int total_hits;
-	private double max_score;
+	@SerializedName("total_hits")
+	private int totalHits;
+	@SerializedName("max_score")
+	private double maxScore;
 	private List<Product> hits;
 
-	public int getTotal_hits() {
-		return total_hits;
+	public int getTotalHits() {
+		return totalHits;
 	}
 
-	public double getMax_score() {
-		return max_score;
+	public double getMaxScore() {
+		return maxScore;
 	}
 
 	public List<Product> getHits() {
