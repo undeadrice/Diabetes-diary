@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+import bruc.diary.Window.MoveableStage;
 import bruc.diary.connectivity.localdatebase.DAO;
 import bruc.diary.connectivity.nutritionix.APIConnection;
 import bruc.diary.connectivity.server.ServerConnection;
@@ -15,6 +16,8 @@ import bruc.diary.entry.Entry;
 import bruc.diary.entry.MealEntry;
 import bruc.diary.entry.MeasurementEntry;
 import bruc.diary.entry.TimeOfDay;
+import bruc.diary.game.Game;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +25,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
@@ -30,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
@@ -43,10 +49,15 @@ public class Controller implements Initializable {
 	private ObservableList<MeasurementEntry> selfList = FXCollections.observableArrayList();
 
 	private ServerConnection connection;
-	
+
 	private DAO dao;
 
+	private volatile Game game;
+
 	private Entry entry;
+
+	@FXML
+	private BorderPane root;
 
 	@FXML
 	private TableColumn<DayOfWeek, String> dayCol;
@@ -89,7 +100,6 @@ public class Controller implements Initializable {
 		selfTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		selfTable.setPlaceholder(new Label("Please add a row"));
 		prepareCells();
-
 	}
 
 	public void init(APIConnection connect, DAO dao) {
@@ -156,7 +166,7 @@ public class Controller implements Initializable {
 			Scene scene = new Scene(root);
 			editStage.setScene(scene);
 			editStage.initModality(Modality.APPLICATION_MODAL);
-			EditController controller = loader.getController();
+
 			// controller.init(this, editStage, connect);
 
 			editStage.show();
@@ -275,21 +285,76 @@ public class Controller implements Initializable {
 		}
 
 	}
-	
-	
+
 	@FXML
 	private void testConnection() {
+
 		try {
 			connection = new ServerConnection();
 			connection.startConnection();
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Unknow host");
+			alert.setHeaderText("UnknowHost Exception");
+			alert.setContentText("Unable to connect");
+
+			alert.showAndWait();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("IOException");
+			alert.setHeaderText("An IO Exception has occured");
+			alert.setContentText("Make sure server is online");
+
+			alert.showAndWait();
 		}
-	
+
 	}
-	
+
+	@FXML
+	private void play() {
+		Thread t = new Thread(() -> {
+			while (true) {
+				try {
+					Thread.sleep(40);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Platform.runLater(() -> {
+					datePicker.setRotate(datePicker.getRotate() + 4);
+					mealTable.setRotate(mealTable.getRotate() - 5);
+				});
+
+			}
+
+		});
+		t.start();
+	}
+
+	@FXML
+	private void fade() {
+		while (root.getOpacity() > 0) {
+			try {
+				Thread.sleep(30);
+				root.setOpacity(root.getOpacity() - 0.015);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@FXML
+	private void launchGame() {
+		Thread t = new Thread(() -> {
+			play();
+			fade();
+			game = new Game(root);
+			game.start();
+		});
+		t.start();
+	}
+
 	@FXML
 	private void exit() {
 		save();

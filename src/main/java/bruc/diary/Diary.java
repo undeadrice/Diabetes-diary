@@ -1,5 +1,7 @@
 package bruc.diary;
 
+import java.lang.reflect.Field;
+
 import bruc.diary.Window.MoveableStage;
 import bruc.diary.connectivity.localdatebase.DAO;
 import bruc.diary.connectivity.localdatebase.SqliteDAO;
@@ -27,12 +29,12 @@ public class Diary extends Application {
 	private static APIConnection connect;
 
 	public static void main(String[] args) throws Exception {
+	
 		
 		connect = new APIConnection();
 		dao = new SqliteDAO();
 		launch(args);
-		
-		
+
 	}
 
 	@Override
@@ -43,8 +45,7 @@ public class Diary extends Application {
 		Controller controller = loader.getController();
 		controller.init(connect, dao);
 
-		Scene scene = new MoveableStage(root,stage);
-
+		Scene scene = new MoveableStage(root, stage);
 
 		stage.setScene(scene);
 		stage.setResizable(false);

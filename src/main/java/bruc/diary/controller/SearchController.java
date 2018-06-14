@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXSpinner;
 
 import bruc.diary.connectivity.nutritionix.APIConnection;
 import bruc.diary.entry.MealEntry;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -71,14 +72,14 @@ public class SearchController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		//spinner.setVisible(false);
 	}
 
 	@FXML
 	private void addSelectedProduct() {
-	
+
 		controller.addSelectedMeal(productTable.getSelectionModel().getSelectedItem());
-		
+
 		this.stage.close();
 
 	}

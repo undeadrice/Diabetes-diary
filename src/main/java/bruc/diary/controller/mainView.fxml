@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="490.0" style="-fx-border-color: rgb(115,210,100); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bruc.diary.controller.Controller">
+<BorderPane fx:id="root" prefHeight="500.0" prefWidth="680.0" style="-fx-border-color: rgb(115,210,100); -fx-border-width: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bruc.diary.controller.Controller">
    <center>
       <GridPane alignment="CENTER" style="-fx-background-color: rgb(240,255,240);" BorderPane.alignment="CENTER">
          <children>
@@ -62,7 +62,7 @@
                   <Button fx:id="addMealBtn" mnemonicParsing="false" onAction="#addMeal" prefWidth="100.0" text="Add meal" />
                   <Button fx:id="deleteMealBtn" mnemonicParsing="false" onAction="#deleteMeal" prefWidth="100.0" text="Delete meal" />
                   <Region prefHeight="31.0" prefWidth="136.0" />
-                  <ImageView fitHeight="27.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                  <ImageView fitHeight="26.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                      <image>
                         <Image url="@poweredby_nutritionix_api.png" />
                      </image>
@@ -77,14 +77,14 @@
                   <Label text="Status" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Create account" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#play" prefWidth="100.0" text="Create account" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#testConnection" prefWidth="100.0" text="Login" GridPane.columnIndex="1" />
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <right>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" BorderPane.alignment="CENTER">
                      <children>
                         <TextField promptText="Username" />
-                        <PasswordField promptText="Password" />
+                        <PasswordField onAction="#launchGame" promptText="Password" />
                      </children>
                   </HBox>
                </right>
